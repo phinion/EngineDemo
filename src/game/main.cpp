@@ -13,7 +13,7 @@ int main()
 
 	core->start();
 
-	//std::shared_ptr<engine::Entity> firstEntity = core->addEntity();
+	std::shared_ptr<engine::Entity> firstEntity = core->addEntity();
 
 	return 0;
 }

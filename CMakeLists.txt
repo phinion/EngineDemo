@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(HorrorGameEngine)
+project(EngineDemo)
 
 include_directories(
 src
@@ -46,12 +46,18 @@ add_library(engine
   src/engine/Entity.cpp
   src/engine/Component.h
   src/engine/Component.cpp
+  src/engine/Shader.h
+  src/engine/Shader.cpp
+  src/engine/Renderer.h
+  src/engine/Renderer.cpp
+
   src/engine/Environment.h
   src/engine/Environment.cpp
   src/engine/Keyboard.h
   src/engine/Keyboard.cpp
   src/engine/Mouse.h
   src/engine/Mouse.cpp
+  
 )
 if(MSVC)
   target_link_libraries(engine
