@@ -36,35 +36,39 @@ else()
   )
 endif()
 
-add_library(engine
-  src/engine/engine.h
-  src/engine/stb_image.h
-  src/engine/stb_image.cpp
-  src/engine/Core.h
-  src/engine/Core.cpp
-  src/engine/Entity.h
-  src/engine/Entity.cpp
-  src/engine/Component.h
-  src/engine/Component.cpp
-  src/engine/Shader.h
-  src/engine/Shader.cpp
-  src/engine/Renderer.h
-  src/engine/Renderer.cpp
+add_library(viridian
+  src/viridian/engine.h
+  src/viridian/stb_image.h
+  src/viridian/stb_image.cpp
+  src/viridian/Core.h
+  src/viridian/Core.cpp
+  src/viridian/Entity.h
+  src/viridian/Entity.cpp
+  src/viridian/Component.h
+  src/viridian/Component.cpp
+  src/viridian/Shader.h
+  src/viridian/Shader.cpp
+  src/viridian/Resource.h
+  src/viridian/Resource.cpp
+  src/viridian/ResourceManager.h
+  src/viridian/ResourceManager.cpp
+  src/viridian/Renderer.h
+  src/viridian/Renderer.cpp
 
-  src/engine/Environment.h
-  src/engine/Environment.cpp
-  src/engine/Keyboard.h
-  src/engine/Keyboard.cpp
-  src/engine/Mouse.h
-  src/engine/Mouse.cpp
+  src/viridian/Environment.h
+  src/viridian/Environment.cpp
+  src/viridian/Keyboard.h
+  src/viridian/Keyboard.cpp
+  src/viridian/Mouse.h
+  src/viridian/Mouse.cpp
   
 )
 if(MSVC)
-  target_link_libraries(engine
+  target_link_libraries(viridian
     SDL2 glew32 opengl32 OpenAL32 ogg vorbis vorbisfile assimp-vc140-mt
   )
 else()
-  target_link_libraries(engine
+  target_link_libraries(viridian
     SDL2 GLU GLEW GL openal ogg vorbis vorbisfile assimp-vc140-mt
   )
 endif()
@@ -74,7 +78,7 @@ add_executable(game
 )
 
 target_link_libraries(game 
-  engine
+  viridian
 )
 
 if(MSVC)

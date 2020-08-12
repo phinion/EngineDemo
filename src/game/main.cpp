@@ -3,17 +3,20 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <engine/engine.h>
+#include <viridian/engine.h>
 
 #include <iostream>
 
 int main() 
 {
-	std::shared_ptr<engine::Core> core = engine::Core::initialize();
+	std::shared_ptr<viridian::Core> engine = viridian::Core::initialize();
 
-	core->start();
+	std::shared_ptr<viridian::Entity> firstEntity = engine->addEntity();
 
-	std::shared_ptr<engine::Entity> firstEntity = core->addEntity();
+
+	engine->start();
+
+	
 
 	return 0;
 }
