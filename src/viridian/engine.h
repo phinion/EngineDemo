@@ -9,5 +9,8 @@
 #include "Keyboard.h"
 
 #include "Shader.h"
+#include "Renderer.h"
+
+#include "ResourceManager.h"
 
 #endif

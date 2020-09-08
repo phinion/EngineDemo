@@ -1,0 +1,2 @@
+../resources/shaders/shaderFiles/simple.vert
+../resources/shaders/shaderFiles/simple.frag

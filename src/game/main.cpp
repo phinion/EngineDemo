@@ -10,6 +10,7 @@
 int main() 
 {
 	std::shared_ptr<viridian::Core> engine = viridian::Core::initialize();
+	engine->getResources()->addResource<viridian::Shader>(std::string("testShader"), std::string("../resources/shaders/simpleShader.txt"));
 
 	std::shared_ptr<viridian::Entity> firstEntity = engine->addEntity();
 

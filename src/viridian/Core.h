@@ -22,7 +22,7 @@ namespace viridian {
 		std::weak_ptr<Core> self;
 
 		std::vector<std::shared_ptr<Entity> > entities;
-		std::shared_ptr<ResourceManager> resources = std::make_shared<ResourceManager>();
+		std::shared_ptr<ResourceManager> resourceManager = std::make_shared<ResourceManager>();
 
 		std::shared_ptr<Environment> environment = std::make_shared<Environment>();
 		std::shared_ptr<Mouse> mouse = std::make_shared<Mouse>();
@@ -36,7 +36,7 @@ namespace viridian {
 
 	public:
 
-		std::shared_ptr<ResourceManager> getResources() { return resources; }
+		std::shared_ptr<ResourceManager> getResources() { return resourceManager; }
 		std::shared_ptr<Environment> getEnvironment() { return environment; }
 		std::shared_ptr<Mouse> getMouse() { return mouse; }
 		std::shared_ptr<Keyboard> getKeyboard() { return keyboard; }

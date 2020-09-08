@@ -8,7 +8,41 @@
 
 namespace viridian {
 
-	void Shader::onInit(const GLchar* vertexShaderFilePath, const GLchar* fragmentShaderFilePath, const char* geometryShaderFilePath) {
+	Shader::Shader(std::string _filePath) {
+
+		std::string vertexShaderFilePath;
+		std::string fragmentShaderFilePath;
+		std::string geometryShaderFilePath;
+
+		bool isGeometryShader = false;
+
+
+		std::ifstream file(_filePath);
+
+		if (!file.is_open())
+		{
+			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+		}
+		else
+		{
+			std::string line;
+			std::getline(file, line);
+			vertexShaderFilePath += line;
+			std::getline(file, line);
+			fragmentShaderFilePath += line;
+			std::getline(file, line);
+			geometryShaderFilePath += line;
+
+			//Check if shader program contains geometry shader
+
+			size_t foundGeometryShader = geometryShaderFilePath.find(".geo");
+			if (foundGeometryShader != std::string::npos)
+			{
+				isGeometryShader = true;
+			}
+		}
+
+		file.close();
 
 		// 1. retrieve the vertex/fragment source code from filePath
 		std::string vertexCode;
@@ -48,7 +82,7 @@ namespace viridian {
 			fragmentCode = fragmentShaderStream.str();
 
 			// if geometry shader path is present, also load a geometry shader
-			if (geometryShaderFilePath != nullptr)
+			if (isGeometryShader)
 			{
 				geometryShaderFile.open(geometryShaderFilePath);
 				std::stringstream geometryShaderStream;
@@ -98,7 +132,7 @@ namespace viridian {
 
 		// Geometry Shader
 		unsigned int geometryShader;
-		if (geometryShaderFilePath != nullptr)
+		if (isGeometryShader)
 		{
 			const char * gShaderCode = geometryCode.c_str();
 			geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
@@ -118,7 +152,7 @@ namespace viridian {
 		ID = glCreateProgram();
 		glAttachShader(ID, vertexShader);
 		glAttachShader(ID, fragmentShader);
-		if (geometryShaderFilePath != nullptr)
+		if (isGeometryShader)
 		{
 			glAttachShader(ID, geometryShader);
 		}
@@ -134,28 +168,41 @@ namespace viridian {
 		// delete the shaders as they're linked into our program now and no longer necessery
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
-		if (geometryShaderFilePath != nullptr)
+		if (isGeometryShader)
 		{
 			glDeleteShader(geometryShader);
 		}
-	}
 
+	}
 	
 	void Shader::setViewMatrices()
 	{
-	/*
 		std::shared_ptr<Entity> currentCameraEntity = getCore()->getCurrentCameraObject();
 		glm::vec3 cameraPos = currentCameraEntity->getComponent<Transform>()->getPos();
 
 		glm::mat4 model = getEntity()->getComponent<Transform>()->getModelMatrix();
 		glm::mat4 view = currentCameraEntity->getComponent<Camera>()->getViewMatrix();
+
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1280 / (float)720, 0.1f, 100.0f);
 
 		setMat4("model", model);
 		setMat4("view", view);
 		setMat4("projection", projection);
 		setVec3("viewPos", cameraPos);
-	*/
+	}
+
+	void Shader::setViewMatrices(std::shared_ptr<Entity> currentEntity, std::shared_ptr<Entity> currentCameraEntity) 
+	{
+		glm::mat4 model = currentEntity->getComponent<Transform>()->getModelMatrix();
+		glm::mat4 view = currentCameraEntity->getComponent<Camera>()->getViewMatrix();
+		glm::vec3 cameraPos = currentCameraEntity->getComponent<Transform>()->getPos();
+
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1280 / (float)720, 0.1f, 100.0f);
+
+		setMat4("model", model);
+		setMat4("view", view);
+		setMat4("projection", projection);
+		setVec3("viewPos", cameraPos);
 	}
 	
 

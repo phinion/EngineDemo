@@ -20,13 +20,14 @@ namespace viridian {
 
 	public:
 	
-		void initialise(std::string _filePath);
+		Shader(std::string _filePath);
 		void onInit(const GLchar* vertexShaderFilePath, const GLchar* fragmentShaderFilePath, const char* geometryShaderFilePath = nullptr);
 
 		//void renderPass();
 
 		void use();
 		void setViewMatrices();
+		void setViewMatrices(std::shared_ptr<Entity> currentEntity, std::shared_ptr<Entity> currentCameraEntity);
 		virtual void setValues() {}
 		
 
